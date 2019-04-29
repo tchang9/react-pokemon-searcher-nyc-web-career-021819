@@ -13,12 +13,24 @@ class PokemonForm extends React.Component {
     }
   }
 
+  onChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const pokemon = {name: this.state.name, stats: [{value: this.state.hp, name: "hp"}], sprites: {front: this.state.frontUrl, back: this.state.backUrl}}
+    this.props.addPokemon(pokemon)
+  }
+
   render() {
     return (
       <div>
         <h3>Add a Pokemon!</h3>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
+          <Form.Group onChange={this.onChange} widths="equal">
             <Form.Input fluid label="Name" placeholder="Name" name="name" />
             <Form.Input fluid label="hp" placeholder="hp" name="hp" />
             <Form.Input fluid label="Front Image URL" placeholder="url" name="frontUrl" />
